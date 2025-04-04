@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWorld - Movie Streaming Platform</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-dark: #1a1a2e;
+            --background-light: #f4f4f4;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-color);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%232c3e50" fill-opacity="1" d="M0,192L48,208C96,224,192,256,288,250.7C384,245,480,203,576,186.7C672,171,768,181,864,197.3C960,213,1056,235,1152,229.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320L192,320L96,320L0,320Z"></path></svg>') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 150px 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Movie Grid */
+        .movie-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 50px 5%;
+        }
+
+        .movie-card {
+            width: 250px;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .movie-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .movie-rating {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Search Section */
+        .search-section {
+            text-align: center;
+            padding: 50px 0;
+            background-color: var(--primary-color);
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-input {
+            width: 400px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            border: none;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* For mobile, you'd typically replace with a hamburger menu */
+            }
+
+            .movie-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .search-input {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">CineWorld</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#movies">Movies</a></li>
+            <li><a href="#genres">Genres</a></li>
+            <li><a href="#search">Search</a></li>
+            <li><a href="#account">Account</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to CineWorld</h1>
+            <p class="hero-description">Discover, stream, and enjoy the latest movies and TV shows from around the world.</p>
+            <a href="#movies" class="cta-button">Explore Movies</a>
+        </div>
+    </section>
+
+    <!-- Movie Grid -->
+    <section id="movies" class="movie-grid">
+        <div class="movie-card">
+            <img src="/api/placeholder/250/350" alt="Movie Poster">
+            <div class="movie-info">
+                <h3 class="movie-title">Inception</h3>
+                <div class="movie-details">
+                    <span>2010</span>
+                    <span class="movie-rating">8.8 ★</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="/api/placeholder/250/350" alt="Movie Poster">
+            <div class="movie-info">
+                <h3 class="movie-title">The Matrix</h3>
+                <div class="movie-details">
+                    <span>1999</span>
+                    <span class="movie-rating">8.7 ★</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="/api/placeholder/250/350" alt="Movie Poster">
+            <div class="movie-info">
+                <h3 class="movie-title">Interstellar</h3>
+                <div class="movie-details">
+                    <span>2014</span>
+                    <span class="movie-rating">8.6 ★</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="/api/placeholder/250/350" alt="Movie Poster">
+            <div class="movie-info">
+                <h3 class="movie-title">Dark Knight</h3>
+                <div class="movie-details">
+                    <span>2008</span>
+                    <span class="movie-rating">9.0 ★</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="search-section">
+        <h2>Find Your Next Movie</h2>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search movies, genres, actors...">
+            <button class="search-button">Search</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 CineWorld. All rights reserved.</p>
+        <p>Discover, Stream, Enjoy</p>
+    </footer>
+
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                alert(Searching for: ${searchTerm});
+                // In a real application, this would trigger an API call or filter movies
+            }
+        }
+
+        // Movie Card Hover Effects
+        const movieCards = document.querySelectorAll('.movie-card');
+        
+        movieCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
